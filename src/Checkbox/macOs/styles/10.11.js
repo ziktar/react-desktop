@@ -66,6 +66,55 @@ export default {
     transition: 'all 0.4s'
   },
 
+  checkboxDark: {
+    WebkitUserSelect: 'none',
+    userSelect: 'none',
+    WebkitAppearance: 'none',
+    appearance: 'none',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '#474747',
+    borderRadius: '3px',
+    backgroundColor: '#565656',
+    padding: '6px',
+    margin: '0 1px',
+    boxShadow: 'inset 0 1px 0 0 rgba(31, 31, 31, .4)',
+    transition: 'all 0.4s',
+
+    ':focus': {
+      outline: 'none'
+    }
+  },
+
+
+  'checkboxDark:active': {
+    borderColor: '#f0f0f0',
+    backgroundColor: '#a4a4a4',
+    boxShadow: 'inset 0 0 0 1px rgba(117, 117, 117, .35)',
+    transition: 'all 0.4s'
+  },
+
+  'checkboxDark:checked': {
+    backgroundColor: '#3b99fc',
+    boxShadow: 'none',
+    borderColor: '#2c91fc',
+    transition: 'all 0.4s'
+  },
+
+  'checkboxDark:checked:unfocused': {
+    backgroundColor: '#424242',
+    boxShadow: 'none',
+    borderColor: '#474747',
+    transition: 'none'
+  },
+
+  'checkboxDark:checked:active': {
+    backgroundColor: '#ff7f09',
+    borderColor: '#ff9523',
+    boxShadow: 'inset 0 0 0 1px rgba(19, 68, 119, .22)',
+    transition: 'all 0.4s'
+  },
+
   checkmark: {
     position: 'absolute',
     top: '4px',

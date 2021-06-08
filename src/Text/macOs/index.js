@@ -32,14 +32,14 @@ class Text extends Component {
     bold: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]),
   };
 
-  static defaultProps = {
-    color: '#000000'
-  };
-
   render() {
     const { color, children, style, bold, ...props } = this.props;
 
-    let componentStyle = { ...styles.text, color };
+    let componentStyle = { ...styles.text };
+    if (color) componentStyle = { ...componentStyle, color: color };
+    else if (this.props.theme === 'dark') componentStyle = { ...componentStyle, color: '#ffffff' };
+    else { componentStyle = { ...componentStyle, color: '#000000' }; }
+
     if (bold && bold === true) {
       componentStyle = { ...componentStyle, fontWeight: 'bold' };
     } else if (bold) {

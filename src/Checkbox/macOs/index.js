@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WindowFocus from '../../windowFocus';
 import Hidden, { hiddenPropTypes } from '../../style/hidden';
+import { ThemeContext, themePropTypes, themeContextTypes } from '../../style/theme/macOs';
 import Radium, { getState } from 'radium';
 import styles from './styles/10.11';
 import Checkmark from './Checkmark';
@@ -11,12 +12,18 @@ import ValueRef from '../../ValueRef';
 @ValueRef()
 @WindowFocus()
 @Hidden()
+@ThemeContext()
 @Radium
 class Checkbox extends Component {
   static propTypes = {
     ...hiddenPropTypes,
+    ...themePropTypes,
     label: PropTypes.string,
     onChange: PropTypes.func
+  };
+
+  static contextTypes = {
+    ...themeContextTypes
   };
 
   constructor(props) {
@@ -49,7 +56,7 @@ class Checkbox extends Component {
   render() {
     let { style, label, isWindowFocused, ...props } = this.props;
     const { transition } = this.state;
-    let componentStyle = { ...styles.checkbox, ...style };
+    let componentStyle = { ...(this.context.theme === 'dark' ? styles.checkboxDark : styles.checkbox), ...style };
     let labelStyle = styles.label;
     let checkMarkColor = '#FFFFFF';
     let shadowColor = '#0050a5';
@@ -58,16 +65,16 @@ class Checkbox extends Component {
       if (isWindowFocused) {
         componentStyle = {
           ...componentStyle,
-          ...styles['checkbox:checked']
+          ...(this.context.theme === 'dark' ? styles['checkboxDark:checked'] : styles['checkbox:checked'])
         };
         if (!transition) componentStyle.transition = 'none';
       } else {
         componentStyle = {
           ...componentStyle,
-          ...styles['checkbox:checked:unfocused']
+          ...(this.context.theme === 'dark' ? styles['checkboxDark:checked:unfocused'] : styles['checkbox:checked:unfocused'])
         };
-        checkMarkColor = '#404040';
-        shadowColor = '#FFFFFF';
+        checkMarkColor = this.context.theme === 'dark' ? '#FFFFFF' : '#404040';
+        shadowColor = this.context.theme === 'dark' ? '#404040' : '#FFFFFF';
       }
     }
 
@@ -75,13 +82,15 @@ class Checkbox extends Component {
       if (this.state.checked) {
         componentStyle = {
           ...componentStyle,
-          ...styles['checkbox:checked:active']
+          ...(this.context.theme === 'dark' ? styles['checkboxDark:checked:active'] : styles['checkbox:checked:active'])
         };
-        shadowColor = '#001d99';
+        if (this.context.theme != 'dark') {
+          shadowColor = '#001d99';
+        }
       } else {
         componentStyle = {
           ...componentStyle,
-          ...styles['checkbox:active']
+          ...(this.context.theme === 'dark' ? styles['checkboxDark:active'] : styles['checkbox:active'])
         };
       }
     }
@@ -103,7 +112,7 @@ class Checkbox extends Component {
               shadowColor={shadowColor}
             />
           </div>
-          <Text style={{ display: 'inline' }}>{label}</Text>
+          <Text theme={this.context.theme} style={{ display: 'inline' }}>{label}</Text>
         </label>
       </div>
     );

@@ -31,12 +31,29 @@ export default {
     }
   },
 
+  buttonDark: {
+    backgroundColor: '#595c5d',
+    color: '#e6e6e6',
+    borderColor: '#595c5d',
+    boxShadow: 'none',
+
+    ':active': {
+      backgroundImage: '-webkit-linear-gradient(top, #4c98fe 0%, #0564e3 100%)',
+      borderTopColor: '#247fff',
+      borderBottomColor: '#003ddb',
+      borderLeftColor: '#125eed',
+      borderRightColor: '#125eed',
+      color: 'rgba(255, 255, 255, .9)'
+    }
+  },
+
   blue: {
     backgroundImage: '-webkit-linear-gradient(top, #6cb3fa 0%, #087eff 100%)',
     borderTopColor: '#4ca2f9',
     borderBottomColor: '#015cff',
     borderLeftColor: '#267ffc',
     borderRightColor: '#267ffc',
+    boxShadow: '0 1px rgba(0, 0, 0, .039)',
     color: 'rgba(255, 255, 255, .9)',
 
     ':active': {

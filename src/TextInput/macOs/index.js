@@ -15,6 +15,11 @@ import FontSize, {
   fontSizePropTypes,
   removeFontSizeProps
 } from '../../style/fontSize';
+import {
+  ThemeContext,
+  themePropTypes,
+  themeContextTypes
+} from '../../style/theme/windows';
 import PlaceholderStyle from '../../placeholderStyle';
 import mapStyles from '../../utils/mapStyles';
 import { parseDimension } from '../../styleHelper';
@@ -25,9 +30,11 @@ import ValueRef from '../../ValueRef';
 @ValueRef()
 @Hidden()
 @Dimension()
+@ThemeContext()
 @Radium
 class TextFieldOSX extends Component {
   static propTypes = {
+    ...themePropTypes,
     ...hiddenPropTypes,
     ...marginPropTypes,
     ...dimensionPropTypes,
@@ -55,6 +62,7 @@ class TextFieldOSX extends Component {
   };
 
   static contextTypes = {
+    ...themeContextTypes,
     titlebarChild: PropTypes.bool
   };
 
@@ -180,6 +188,9 @@ class TextFieldOSX extends Component {
     let [inputStyle, containerStyle] = mapStyles(style, TextFieldOSX.mapStyles);
 
     let componentStyle = { ...styles.textField };
+    if (this.context.theme === 'dark') {
+      componentStyle = { ...componentStyle, ...styles.textFieldDark };
+    }
 
     if (rounded) rounded = rounded === true ? '4px' : parseDimension(rounded);
 
@@ -187,7 +198,10 @@ class TextFieldOSX extends Component {
     if (this.state.isFocused && focusRing) {
       componentStyle = {
         ...componentStyle,
-        ...(rounded ? styles.textFieldRoundedFocus : styles.textFieldFocus)
+        ...(rounded
+          ? (this.context.theme === 'dark' ? styles.textFieldRoundedFocusDark : styles.textFieldRoundedFocus)
+          : (this.context.theme === 'dark' ? styles.textFieldFocusDark : styles.textFieldFocus)
+        )
       };
 
       let focusElementStyle = {
@@ -199,7 +213,7 @@ class TextFieldOSX extends Component {
     }
 
     let labelComponent = label ? (
-      <Label margin="0 0 3px 0">{label}</Label>
+      <Label theme={this.context.theme} margin="0 0 3px 0">{label}</Label>
     ) : null;
 
     props = removeFontSizeProps(
@@ -256,7 +270,7 @@ class TextFieldOSX extends Component {
               {icon}
             </div>
             {this.state.showPlaceholder ? (
-              <Text color="#c0c0c0" size="12">
+              <Text theme={this.context.theme} color="#c0c0c0" size="12">
                 {placeholder}
               </Text>
             ) : null}

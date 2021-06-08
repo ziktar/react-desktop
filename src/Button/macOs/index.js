@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WindowFocus from '../../windowFocus';
+import { ThemeContext, themePropTypes, themeContextTypes } from '../../style/theme/windows';
 import Hidden, { hiddenPropTypes } from '../../style/hidden';
 import FontSize, { fontSizePropTypes } from '../../style/fontSize';
 import Padding, { paddingPropTypes, removeDuplicatePaddingProps } from '../../style/padding';
@@ -13,6 +14,7 @@ import Radium from 'radium';
 @Margin()
 @Hidden()
 @FontSize()
+@ThemeContext()
 @Radium
 class Button extends Component {
   static propTypes = {
@@ -20,11 +22,16 @@ class Button extends Component {
     ...fontSizePropTypes,
     ...paddingPropTypes,
     ...marginPropTypes,
+    ...themePropTypes,
     type: PropTypes.string,
     color: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     onClick: PropTypes.func,
     onEnter: PropTypes.func,
     disabled: PropTypes.bool
+  };
+
+  static contextTypes = {
+    ...themeContextTypes
   };
 
   componentDidMount() {
@@ -50,6 +57,10 @@ class Button extends Component {
     delete props.onEnter;
 
     let componentStyle = { ...styles.button };
+    if (this.context.theme === 'dark') {
+      componentStyle = { ...componentStyle, ...styles.buttonDark };
+    }
+
     if (!disabled && color === 'blue' && isWindowFocused) {
       componentStyle = { ...componentStyle, ...styles.blue };
     } else if (disabled) {

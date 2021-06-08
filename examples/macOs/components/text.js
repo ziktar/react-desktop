@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { Text } from 'react-desktop/macOs';
 
 export default class extends Component {
+  static defaultProps = {
+    theme: 'light'
+  };
+
   render() {
     return (
-      <Text padding="0 100px" textAlign="center" size="16">
+      <Text theme={this.props.theme} padding="0 100px" textAlign="center" size="16">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam justo urna, posuere vitae est et, accumsan
         bibendum sapien. Suspendisse lobortis mollis finibus. Nunc tincidunt enim est, efficitur semper dolor luctus
         eget. Donec faucibus dolor id leo tincidunt, condimentum mattis augue finibus. Etiam hendrerit ipsum nisi,

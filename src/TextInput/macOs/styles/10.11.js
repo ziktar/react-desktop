@@ -41,6 +41,16 @@ export default {
     }
   },
 
+  textFieldDark: {
+    backgroundColor: '#2d2f30',
+    color: '#bbbbbb',
+    borderTopColor: '#4c4e4e',
+    borderLeftColor: '#4c4e4e',
+    borderRightColor: '#4c4e4e',
+    borderBottomColor: '#4c4e4e',
+    boxShadow: 'none',
+  },
+
   textFieldFocus: {
     borderTopColor: '#64abda',
     borderLeftColor: '#64abda',
@@ -55,6 +65,23 @@ export default {
     borderRightColor: '#64abda',
     borderBottomColor: '#64abda',
     boxShadow: 'inset 0 0 0 1px rgba(125, 195, 242, .7)',
+    transition: 'all .22s ease-out'
+  },
+
+  textFieldFocusDark: {
+    borderTopColor: '#4c4e4e',
+    borderLeftColor: '#4c4e4e',
+    borderRightColor: '#4c4e4e',
+    borderBottomColor: '#4c4e4e',
+    transition: 'border-color .22s ease-out'
+  },
+
+  textFieldRoundedFocusDark: {
+    borderTopColor: '#4c4e4e',
+    borderLeftColor: '#4c4e4e',
+    borderRightColor: '#4c4e4e',
+    borderBottomColor: '#4c4e4e',
+    boxShadow: 'none',
     transition: 'all .22s ease-out'
   },
 
