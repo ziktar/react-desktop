@@ -16,6 +16,7 @@ yarn.lock
 ########
 
 /lib
+/build
 
 # Logs
 logs
